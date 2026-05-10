@@ -19,6 +19,7 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--brand-frost);
             color: var(--brand-navy);
+            scroll-behavior: smooth;
         }
         .mono {
             font-family: 'JetBrains Mono', monospace;
@@ -29,304 +30,337 @@
         .border-emerald { border-color: var(--brand-emerald); }
         
         .hero-gradient {
-            background: linear-gradient(135deg, #1A2B44 0%, #111e2f 100%);
+            background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05) 0%, rgba(26, 43, 68, 0) 50%);
         }
         
         .card {
             background: white;
             border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            transition: all 0.3s ease;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         .card:hover {
             border-color: var(--brand-emerald);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.1);
         }
+
+        .transformation-box {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        .secure-badge {
+            background: linear-gradient(90deg, #10B981 0%, #059669 100%);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-anim { animation: float 6s ease-in-out infinite; }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased hero-gradient">
     <!-- Navigation -->
-    <nav class="py-6 px-8 flex justify-between items-center max-w-7xl mx-auto">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-emerald rounded-lg flex items-center justify-center text-white font-bold">G</div>
-            <span class="text-2xl font-extrabold tracking-tight">Galiondo</span>
-        </div>
-        <div class="hidden md:flex gap-8 items-center text-sm font-semibold">
-            <a href="#problem" class="hover:text-emerald">The Problem</a>
-            <a href="#solution" class="hover:text-emerald">Standardization</a>
-            <a href="#pricing" class="hover:text-emerald">Pricing</a>
-            <a href="mailto:raphael@baget.ai" class="bg-navy text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition">Contact Sales</a>
+    <nav class="sticky top-0 z-50 py-4 px-8 bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-navy rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-navy/20">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M12 3v18M3 12h18" stroke-linecap="round"/>
+                        <path d="M5 12l7-7 7 7M5 12l7 7 7-7" stroke-opacity="0.2"/>
+                    </svg>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight">Galiondo</span>
+            </div>
+            <div class="hidden md:flex gap-10 items-center text-sm font-semibold text-slate-600">
+                <a href="#panic-free" class="hover:text-emerald transition">Panic-Free Reporting</a>
+                <a href="#how-it-works" class="hover:text-emerald transition">Automation</a>
+                <a href="#dashboard" class="hover:text-emerald transition">Investor View</a>
+                <a href="#waitlist" class="bg-navy text-white px-6 py-3 rounded-xl hover:opacity-90 transition shadow-xl shadow-navy/20">Get Early Access</a>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 px-8">
-        <div class="max-w-7xl mx-auto grid md:grid-template-columns md:grid-cols-2 gap-12 items-center">
+    <header class="relative pt-20 pb-24 px-8 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
             <div class="z-10">
-                <div class="inline-flex items-center gap-2 bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald"></span>
-                    </span>
-                    QBO to Galion Automated
+                <div class="inline-flex items-center gap-2 bg-emerald/10 text-emerald px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider mb-8">
+                    <span class="w-2 h-2 rounded-full bg-emerald animate-pulse"></span>
+                    Verified Galion Standard v2026
                 </div>
-                <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6">
-                    Investor updates on <span class="text-emerald">autopilot.</span>
+                <h1 id="panic-free" class="text-6xl lg:text-7xl font-extrabold leading-[1.05] mb-8 tracking-tight">
+                    Stop the <span class="text-emerald">25th of the month</span> panic.
                 </h1>
-                <p class="text-lg md:text-xl text-slate-600 mb-10 max-w-lg leading-relaxed">
-                    Galiondo transforms raw QuickBooks data into institutional-grade reporting for Alven, Kima, and Daphni portfolios.
+                <p class="text-xl text-slate-600 mb-10 max-w-lg leading-relaxed font-medium">
+                    Galiondo automates your investor updates by mapping raw QuickBooks data to the Galion Standard in seconds. Spend 5 minutes, not 6 hours.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#waitlist" class="bg-emerald text-white px-8 py-4 rounded-xl font-bold text-center hover:scale-[1.02] transition shadow-lg shadow-emerald/20">Get Early Access</a>
-                    <a href="#solution" class="border border-slate-200 bg-white px-8 py-4 rounded-xl font-bold text-center hover:bg-slate-50 transition">View the Standard</a>
+                <div class="flex flex-col sm:flex-row gap-5">
+                    <a href="#waitlist" class="bg-emerald text-white px-10 py-5 rounded-2xl font-bold text-center hover:scale-[1.02] active:scale-[0.98] transition shadow-2xl shadow-emerald/30 text-lg">Claim June Cohort Slot</a>
+                    <a href="#how-it-works" class="border border-slate-200 bg-white px-10 py-5 rounded-2xl font-bold text-center hover:bg-slate-50 transition text-lg flex items-center justify-center gap-2">
+                        See Transformation
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
                 </div>
-                <div class="mt-8 flex items-center gap-4 text-sm text-slate-500 font-medium">
-                    <div class="flex -space-x-2">
-                        <div class="w-8 h-8 rounded-full bg-slate-200 border-2 border-white"></div>
-                        <div class="w-8 h-8 rounded-full bg-slate-300 border-2 border-white"></div>
-                        <div class="w-8 h-8 rounded-full bg-slate-400 border-2 border-white"></div>
+                <div class="mt-12 flex items-center gap-6">
+                    <div class="flex -space-x-3">
+                        <div class="w-12 h-12 rounded-full bg-slate-200 border-4 border-white"></div>
+                        <div class="w-12 h-12 rounded-full bg-slate-300 border-4 border-white"></div>
+                        <div class="w-12 h-12 rounded-full bg-slate-400 border-4 border-white"></div>
                     </div>
-                    <span>Trusted by founders in Alven & Kima portfolios</span>
+                    <p class="text-sm text-slate-500 font-semibold italic">
+                        "Finally, a reporting tool that understands French CIR logic."
+                    </p>
                 </div>
             </div>
             <div class="relative">
-                <div class="absolute -inset-4 bg-emerald/5 blur-3xl rounded-full"></div>
-                <img src="https://r2.baget.ai/v1/a-high-fidelity-ui-mockup-of-a-financial.png" alt="Galiondo Dashboard Mockup" class="relative rounded-2xl shadow-2xl border border-slate-200 transform md:rotate-1 md:hover:rotate-0 transition duration-500">
+                <div class="absolute -inset-10 bg-emerald/10 blur-[120px] rounded-full"></div>
+                <div class="float-anim">
+                    <img src="images/a-high-fidelity-minimalist-ui-dashboard-.png" alt="Galiondo Dashboard Mockup" class="relative rounded-[32px] shadow-[0_32px_80px_-20px_rgba(26,43,68,0.3)] border border-white/50">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border border-slate-100 max-w-[200px]">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-2 h-2 rounded-full bg-emerald"></div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Monthly Burn</span>
+                        </div>
+                        <div class="text-2xl font-bold text-navy mono">€42,400.00</div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Problem Section -->
-    <section id="problem" class="py-24 px-8 bg-white border-y border-slate-100">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">The "25th of the Month" Panic.</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto">Founders spend average 6 hours every month manually mapping accounting exports to VC mandates. It's time to stop the spreadsheet friction.</p>
+    <!-- Trust / Portfolios -->
+    <section class="py-12 border-y border-slate-100 bg-white">
+        <div class="max-w-7xl mx-auto px-8">
+            <p class="text-center text-xs font-bold text-slate-400 uppercase tracking-[0.3em] mb-10">Trusted by founders in lead portfolios</p>
+            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition duration-700">
+                <span class="text-2xl font-black text-navy">ALVEN</span>
+                <span class="text-2xl font-black text-navy">KIMA</span>
+                <span class="text-2xl font-black text-navy">DAPHNI</span>
+                <span class="text-2xl font-black text-navy">VENTECH</span>
             </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card p-8">
-                    <div class="w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">6 Hours Lost</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">The time your finance team wastes manually reconciling QBO categories to the Galion standard every single month.</p>
+        </div>
+    </section>
+
+    <!-- Transformation Section -->
+    <section id="how-it-works" class="py-32 px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="order-2 lg:order-1">
+                    <img src="images/a-sleek-professional-infographic-showin.png" alt="QBO to Galion Transformation" class="rounded-[32px] shadow-2xl">
                 </div>
-                <div class="card p-8">
-                    <div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-8 leading-tight">The universal translation layer for French VC.</h2>
+                    <p class="text-lg text-slate-600 mb-10 leading-relaxed font-medium">
+                        QuickBooks Online exports don't align with Galion Standard rows like "Masse Salariale" or "CIR Tax Credits." Galiondo's engine flattens the JSON and maps every cent with 100% precision.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-5">
+                            <div class="w-12 h-12 bg-emerald/10 text-emerald rounded-2xl flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">Instant Mapping</h4>
+                                <p class="text-slate-500">Auto-maps QBO IDs to Galion codes (G-PL-01 to G-BS-04).</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="w-12 h-12 bg-emerald/10 text-emerald rounded-2xl flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">Precision Audit Logs</h4>
+                                <p class="text-slate-500">Every transformation is logged for accuracy, ensuring VC trust.</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Manual Errors</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Broken Excel formulas and incorrect CIR/CII tax logic lead to inconsistent burn calculations and loss of VC trust.</p>
-                </div>
-                <div class="card p-8">
-                    <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Institutional Lag</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">Investors waiting 25 days for visibility into your cash position. Professional founders provide real-time clarity.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Solution / Data Section -->
-    <section id="solution" class="py-24 px-8">
-        <div class="max-w-7xl mx-auto bg-navy rounded-3xl p-12 md:p-20 text-white overflow-hidden relative">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-emerald/10 blur-[100px] rounded-full -mr-48 -mt-48"></div>
-            <div class="grid md:grid-cols-2 gap-16 items-center">
+    <!-- Investor Dashboard Section -->
+    <section id="dashboard" class="py-32 px-8 bg-navy text-white overflow-hidden relative">
+        <div class="absolute bottom-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 L100 0 V100 H0 Z" fill="var(--brand-emerald)"></path>
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10 text-center mb-20">
+            <div class="secure-badge inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-8">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                TLS 1.3 SECURED VIEWER
+            </div>
+            <h2 class="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Updates that VCs actually read.</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto text-xl leading-relaxed font-medium">
+                No more manual emails with raw CSVs. Share secure Magic Links that provide an interactive, visual dashboard to your investors.
+            </p>
+        </div>
+        <div class="max-w-6xl mx-auto">
+            <div class="relative rounded-[40px] overflow-hidden shadow-[0_48px_100px_-20px_rgba(0,0,0,0.5)] border border-white/10 group">
+                <img src="https://r2.baget.ai/v1/a-high-fidelity-ui-mockup-of-a-financial.png" alt="Magic Link Viewer" class="w-full h-auto transform group-hover:scale-[1.02] transition duration-1000">
+                <div class="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist / Signup -->
+    <section id="waitlist" class="py-32 px-8 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald/5 blur-[120px] rounded-full"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="card p-12 md:p-20 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald/5 rounded-full -mr-16 -mt-16"></div>
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">Join the June Cohort.</h2>
+                <p class="text-xl text-slate-500 mb-12 max-w-xl mx-auto font-medium">
+                    We're onboarding 10 high-growth startups this month. Secure your slot and eliminate reporting friction forever.
+                </p>
+                <form id="waitlist-form" class="space-y-6 max-w-2xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="text-left">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Full Name</label>
+                            <input type="text" name="name" placeholder="Guillaume S." required class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-4 focus:ring-emerald/10 focus:border-emerald transition-all bg-slate-50">
+                        </div>
+                        <div class="text-left">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Work Email</label>
+                            <input type="email" name="email" placeholder="founder@company.com" required class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-4 focus:ring-emerald/10 focus:border-emerald transition-all bg-slate-50">
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="text-left">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Company</label>
+                            <input type="text" name="company" placeholder="Galiondo" required class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-4 focus:ring-emerald/10 focus:border-emerald transition-all bg-slate-50">
+                        </div>
+                        <div class="text-left">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Funding Stage</label>
+                            <select name="funding_stage" required class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-4 focus:ring-emerald/10 focus:border-emerald transition-all bg-white appearance-none">
+                                <option value="">Select Stage...</option>
+                                <option value="Seed">Seed</option>
+                                <option value="Series A">Series A</option>
+                                <option value="Series B+">Series B+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-emerald text-white font-extrabold py-5 rounded-2xl shadow-[0_20px_40px_-10px_rgba(16,185,129,0.4)] hover:scale-[1.01] active:scale-[0.98] transition-all text-xl mt-4">Connect My QBO</button>
+                    <div id="form-status" class="hidden py-4 rounded-2xl font-bold"></div>
+                </form>
+                <div class="mt-12 flex items-center justify-center gap-8 text-xs font-bold text-slate-400 uppercase tracking-widest">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        100% Data Privacy
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-emerald" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        No Credit Card Required
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-8 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 md:gap-24">
+            <div class="max-w-sm">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-8 h-8 bg-navy rounded-lg flex items-center justify-center text-white font-bold">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v18M3 12h18"/></svg>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight">Galiondo</span>
+                </div>
+                <p class="text-slate-500 leading-relaxed">
+                    Automating the universal translation layer between startup accounting and venture capital standards. Built for the French ecosystem.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-24">
                 <div>
-                    <h2 class="text-3xl md:text-5xl font-extrabold mb-8 leading-tight">The standardization moat for French tech.</h2>
-                    <p class="text-slate-400 mb-8 text-lg">We've built a specialized API connector that flattens QBO JSON and auto-maps it to the Galion Project IDs (G-PL-01 to G-BS-04).</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald mt-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
-                            </span>
-                            <div>
-                                <span class="font-bold block text-white">Verified CIR Logic</span>
-                                <span class="text-sm text-slate-400">Research tax credits correctly separated from operating margin.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald mt-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
-                            </span>
-                            <div>
-                                <span class="font-bold block text-white">Institutional Grade CSVs</span>
-                                <span class="text-sm text-slate-400">Export perfectly formatted files that plug directly into VC systems.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-emerald mt-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
-                            </span>
-                            <div>
-                                <span class="font-bold block text-white">Secure Magic Links</span>
-                                <span class="text-sm text-slate-400">Share your updates via time-sensitive, encrypted dashboard viewers.</span>
-                            </div>
-                        </li>
+                    <h5 class="font-bold text-navy mb-6">Product</h5>
+                    <ul class="space-y-4 text-slate-500 font-medium">
+                        <li><a href="#how-it-works" class="hover:text-emerald transition">Automation</a></li>
+                        <li><a href="#dashboard" class="hover:text-emerald transition">Magic Links</a></li>
+                        <li><a href="#pricing" class="hover:text-emerald transition">Pricing</a></li>
                     </ul>
                 </div>
-                <div class="bg-white/5 rounded-2xl p-6 border border-white/10">
-                    <div class="flex justify-between items-center mb-6">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mono">Mapping Engine v1.0</span>
-                        <span class="px-2 py-1 bg-emerald/20 text-emerald text-[10px] rounded font-bold uppercase mono">Verified</span>
-                    </div>
-                    <div class="space-y-3 mono text-[11px]">
-                        <div class="flex justify-between p-2 rounded bg-white/5 border border-white/5">
-                            <span class="text-slate-400">QBO_Total_Income</span>
-                            <span class="text-emerald">→ G-PL-01 (CA Net)</span>
-                        </div>
-                        <div class="flex justify-between p-2 rounded bg-white/5 border border-white/5">
-                            <span class="text-slate-400">QBO_Salaries_Exp</span>
-                            <span class="text-emerald">→ G-PL-04 (Masse Salariale)</span>
-                        </div>
-                        <div class="flex justify-between p-2 rounded bg-white/5 border border-white/5">
-                            <span class="text-slate-400">QBO_Bank_Accounts</span>
-                            <span class="text-emerald">→ G-BS-01 (Trésorerie)</span>
-                        </div>
-                        <div class="pt-4 border-t border-white/10 mt-4">
-                            <div class="text-slate-400 mb-2">// Calculate Investor KPIs</div>
-                            <div class="text-emerald">Burn_Rate = Cash[n] - Cash[n-1]</div>
-                            <div class="text-emerald">Runway = Ending_Cash / ABS(Avg_EBITDA)</div>
-                        </div>
-                    </div>
+                <div>
+                    <h5 class="font-bold text-navy mb-6">Company</h5>
+                    <ul class="space-y-4 text-slate-500 font-medium">
+                        <li><a href="mailto:raphael@baget.ai" class="hover:text-emerald transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-emerald transition">Privacy</a></li>
+                        <li><a href="#" class="hover:text-emerald transition">Legal</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-navy mb-6">Connect</h5>
+                    <ul class="space-y-4 text-slate-500 font-medium">
+                        <li><a href="https://linkedin.com/company/galiondo" class="hover:text-emerald transition">LinkedIn</a></li>
+                        <li><a href="https://twitter.com/galiondo" class="hover:text-emerald transition">Twitter</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing" class="py-24 px-8 bg-slate-50">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Pricing for transparency.</h2>
-                <p class="text-slate-500">Simple, predictable plans for high-growth startups.</p>
-            </div>
-            <div class="flex flex-col md:flex-row gap-8 justify-center">
-                <div class="card p-10 bg-white max-w-sm w-full">
-                    <h3 class="text-lg font-bold mb-2">Standard Plan</h3>
-                    <div class="mb-6">
-                        <span class="text-4xl font-extrabold">$150</span>
-                        <span class="text-slate-500">/mo</span>
-                    </div>
-                    <ul class="space-y-4 mb-10 text-sm text-slate-600">
-                        <li class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-emerald" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>
-                            Automated QBO to Galion Mapping
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-emerald" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>
-                            Burn & Runway Tracking
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-emerald" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>
-                            Narrative Narrative Drafts
-                        </li>
-                    </ul>
-                    <a href="#waitlist" class="block text-center py-3 bg-navy text-white font-bold rounded-lg hover:opacity-90 transition">Select Plan</a>
-                </div>
-                <div class="card p-10 bg-white border-emerald max-w-sm w-full relative">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">VC Recommended</div>
-                    <h3 class="text-lg font-bold mb-2">Portfolio Pack</h3>
-                    <div class="mb-6">
-                        <span class="text-4xl font-extrabold">$120</span>
-                        <span class="text-slate-500">/mo per co.</span>
-                    </div>
-                    <ul class="space-y-4 mb-10 text-sm text-slate-600">
-                        <li class="flex items-center gap-3 font-bold text-navy">
-                            <svg class="w-5 h-5 text-emerald" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>
-                            Everything in Standard
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-emerald" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>
-                            Centralized LP Visibility
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-emerald" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg>
-                            Dedicated Support for 20+ Cos.
-                        </li>
-                    </ul>
-                    <a href="mailto:raphael@baget.ai" class="block text-center py-3 bg-emerald text-white font-bold rounded-lg hover:opacity-90 transition shadow-lg shadow-emerald/20">Contact Sales</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Waitlist Capture -->
-    <section id="waitlist" class="py-24 px-8 bg-white">
-        <div class="max-w-3xl mx-auto bg-slate-50 border border-slate-200 p-12 rounded-3xl text-center">
-            <h2 class="text-3xl font-extrabold mb-4">Join the beta.</h2>
-            <p class="text-slate-500 mb-8">Currently onboarding startups in the Alven and Kima portfolios for our June reporting cohort.</p>
-            <form id="waitlist-form" class="space-y-4">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <input type="text" name="name" placeholder="Full Name" required class="px-5 py-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald/20 focus:border-emerald w-full">
-                    <input type="email" name="email" placeholder="Work Email" required class="px-5 py-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald/20 focus:border-emerald w-full">
-                </div>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <input type="text" name="company" placeholder="Company Name" required class="px-5 py-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald/20 focus:border-emerald w-full">
-                    <select name="funding_stage" required class="px-5 py-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald/20 focus:border-emerald w-full bg-white">
-                        <option value="">Funding Stage</option>
-                        <option value="Seed">Seed</option>
-                        <option value="Series A">Series A</option>
-                        <option value="Series B+">Series B+</option>
-                    </select>
-                </div>
-                <button type="submit" class="w-full bg-emerald text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald/20 hover:scale-[1.01] transition mt-2">Claim Your Slot</button>
-                <p id="form-msg" class="mt-4 text-sm font-medium text-emerald hidden">Success! We'll reach out to finalize your QBO connection.</p>
-            </form>
-        </div>
-    </section>
-
-    <footer class="py-12 px-8 border-t border-slate-100 text-slate-400 text-sm">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex items-center gap-2 text-navy grayscale opacity-50">
-                <div class="w-6 h-6 bg-navy rounded flex items-center justify-center text-white text-[10px] font-bold">G</div>
-                <span class="font-bold tracking-tight">Galiondo</span>
-            </div>
-            <div class="flex gap-8">
-                <a href="#" class="hover:text-emerald">Privacy Policy</a>
-                <a href="#" class="hover:text-emerald">Terms of Service</a>
-                <a href="mailto:raphael@baget.ai" class="hover:text-emerald">raphael@baget.ai</a>
-            </div>
-            <p>&copy; 2026 Galiondo. Financial precision on autopilot.</p>
+        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-xs font-bold uppercase tracking-[0.2em]">
+            <p>&copy; 2026 Galiondo SAS. All rights reserved.</p>
+            <p>Made for Alven, Kima, & Daphni Portfolios</p>
         </div>
     </footer>
 
     <script>
-        document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+        const form = document.getElementById('waitlist-form');
+        const status = document.getElementById('form-status');
+        const btn = form.querySelector('button');
+
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const msg = document.getElementById('form-msg');
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
-            
             btn.disabled = true;
-            btn.innerText = 'Connecting...';
+            btn.innerText = 'Connecting QBO...';
             
+            const formData = new FormData(form);
+            const payload = {
+                data: Object.fromEntries(formData.entries())
+            };
+
             try {
                 const response = await fetch('https://app.baget.ai/api/public/databases/d9e0f007-c391-40d8-a36b-b2fe9b10dd8c/rows', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data })
+                    body: JSON.stringify(payload)
                 });
-                
+
                 if (response.ok) {
-                    msg.classList.remove('hidden');
-                    e.target.reset();
+                    status.innerText = 'Success! Check your email to finalize connection.';
+                    status.classList.remove('hidden');
+                    status.classList.add('bg-emerald/10', 'text-emerald');
+                    form.reset();
                     btn.innerText = 'Slot Claimed';
                 } else {
-                    btn.innerText = 'Claim Your Slot';
-                    btn.disabled = false;
-                    alert('Submission error. Please try again.');
+                    throw new Error('Failed to submit');
                 }
             } catch (err) {
-                console.error(err);
+                status.innerText = 'Something went wrong. Please try again.';
+                status.classList.remove('hidden', 'bg-emerald/10', 'text-emerald');
+                status.classList.add('bg-red-50', 'text-red-500');
                 btn.disabled = false;
-                btn.innerText = 'Claim Your Slot';
+                btn.innerText = 'Connect My QBO';
             }
         });
+
+        // Simple count display logic if needed
+        async function updateCount() {
+            try {
+                const res = await fetch('https://app.baget.ai/api/public/databases/d9e0f007-c391-40d8-a36b-b2fe9b10dd8c/count');
+                const { count } = await res.json();
+                if (count > 0) {
+                    console.log(`${count} founders joined`);
+                }
+            } catch (e) {}
+        }
+        updateCount();
     </script>
 </body>
 </html>
