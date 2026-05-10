@@ -1,0 +1,11 @@
+{
+  "name": "baget-galiondo",
+  "version": "1.0.0",
+  "description": "Galiondo Landing Page and Mapping Engine",
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  }
+}
