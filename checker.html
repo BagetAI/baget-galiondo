@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporting Gap Checker | Galiondo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-navy: #1A2B44;
+            --brand-emerald: #10B981;
+            --brand-red: #EF4444;
+            --brand-slate: #64748B;
+            --brand-frost: #F8FAFC;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-frost);
+            color: var(--brand-navy);
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .bg-navy { background-color: var(--brand-navy); }
+        .bg-emerald { background-color: var(--brand-emerald); }
+        .text-emerald { color: var(--brand-emerald); }
+        .text-red { color: var(--brand-red); }
+        .card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 24px;
+        }
+        .progress-bar {
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 py-4 px-8 bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+                <div class="w-8 h-8 bg-navy rounded-lg flex items-center justify-center text-white font-bold">G</div>
+                <span class="text-xl font-extrabold tracking-tight">Galiondo</span>
+            </a>
+            <div class="flex gap-6 items-center">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Reporting Gap Checker</span>
+                <a href="index.html#waitlist" class="bg-navy text-white px-4 py-2 rounded-lg text-xs font-bold hover:opacity-90 transition">Join Cohort</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-8 md:py-16">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Check your <span class="text-emerald">Galion Compatibility</span></h1>
+            <p class="text-slate-500 font-medium text-lg">Upload your QuickBooks JSON export to identify mapping gaps before the 25th.</p>
+        </div>
+
+        <!-- Upload Area -->
+        <div id="drop-zone" class="card p-12 mb-12 border-2 border-dashed border-slate-200 hover:border-emerald transition-all text-center group cursor-pointer">
+            <input type="file" id="file-input" class="hidden" accept=".json">
+            <div class="w-20 h-20 bg-emerald/10 text-emerald rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Drop your QBO JSON here</h3>
+            <p class="text-slate-400 text-sm font-medium mb-6">Or click to browse your computer</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="document.getElementById('file-input').click()" class="bg-navy text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition">Choose File</button>
+                <button onclick="loadMock()" class="text-emerald font-bold hover:underline text-sm">Try with Mock Data</button>
+            </div>
+        </div>
+
+        <!-- Results Section (Hidden by default) -->
+        <div id="results" class="hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <!-- Score Card -->
+            <div class="card p-8 bg-navy text-white overflow-hidden relative">
+                <div class="absolute -right-10 -top-10 w-40 h-40 bg-emerald/10 rounded-full blur-3xl"></div>
+                <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div class="text-center md:text-left">
+                        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Compatibility Score</h2>
+                        <div id="score-value" class="text-7xl font-extrabold tracking-tighter text-emerald mb-2">0%</div>
+                        <p id="score-text" class="text-slate-300 font-medium">Identify gaps to reach 100% compliance.</p>
+                    </div>
+                    <div class="w-full md:w-64 space-y-4">
+                        <div class="w-full bg-white/10 h-4 rounded-full overflow-hidden">
+                            <div id="score-bar" class="bg-emerald h-full progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="flex justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                            <span>Critical Gaps</span>
+                            <span id="gap-count" class="text-red">0 Found</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Table -->
+            <div class="card overflow-hidden">
+                <div class="p-6 border-b border-slate-100">
+                    <h2 class="font-bold text-lg">Mapping Analysis</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50">
+                                <th class="px-6 py-4">Galion ID</th>
+                                <th class="px-6 py-4">Required Field</th>
+                                <th class="px-6 py-4">QBO Status</th>
+                                <th class="px-6 py-4">Recommendation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="analysis-body" class="divide-y divide-slate-100">
+                            <!-- Rows injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Action Area -->
+            <div class="bg-emerald/5 border border-emerald/20 p-8 rounded-3xl text-center">
+                <h3 class="text-xl font-bold mb-4">Ready to automate your May report?</h3>
+                <p class="text-slate-600 mb-8 max-w-lg mx-auto">Get 100% precision with our deterministic mapping engine. No more manual Excel mapping.</p>
+                <a href="index.html#waitlist" class="inline-block bg-emerald text-white px-10 py-4 rounded-xl font-bold hover:scale-[1.02] transition shadow-xl shadow-emerald/20">Secure Your Slot</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-20 px-8 border-t border-slate-100 bg-white">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-sm font-bold text-slate-400">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-navy rounded flex items-center justify-center text-white text-[10px]">G</div>
+                <span class="text-navy">Galiondo &copy; 2026</span>
+            </div>
+            <div class="flex gap-8 uppercase tracking-widest">
+                <a href="index.html" class="hover:text-emerald">Home</a>
+                <a href="founder.html" class="hover:text-emerald">Console</a>
+                <a href="dashboard.html" class="hover:text-emerald">Investor View</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="checker.js"></script>
+</body>
+</html>

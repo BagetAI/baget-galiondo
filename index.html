@@ -78,7 +78,10 @@
             </div>
             <div class="hidden md:flex gap-10 items-center text-sm font-semibold text-slate-600">
                 <a href="#panic-free" class="hover:text-emerald transition">Value Prop</a>
-                <a href="#how-it-works" class="hover:text-emerald transition">The Engine</a>
+                <a href="checker.html" class="hover:text-emerald transition flex items-center gap-2">
+                    Gap Checker
+                    <span class="bg-emerald text-white text-[8px] px-1.5 py-0.5 rounded uppercase">Free</span>
+                </a>
                 <a href="dashboard.html" class="hover:text-emerald transition">Investor View</a>
                 <a href="founder.html" class="hover:text-emerald transition underline decoration-emerald decoration-2 underline-offset-4">Founder Console</a>
                 <a href="#waitlist" class="bg-navy text-white px-6 py-3 rounded-xl hover:opacity-90 transition shadow-xl shadow-navy/20">Early Access</a>
@@ -102,8 +105,9 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-5">
                     <a href="#waitlist" class="bg-emerald text-white px-10 py-5 rounded-2xl font-bold text-center hover:scale-[1.02] active:scale-[0.98] transition shadow-2xl shadow-emerald/30 text-lg">Secure Your Slot</a>
-                    <a href="founder.html" class="border border-slate-200 bg-white px-10 py-5 rounded-2xl font-bold text-center hover:bg-slate-50 transition text-lg flex items-center justify-center gap-2">
-                        Founder Login
+                    <a href="checker.html" class="border border-slate-200 bg-white px-10 py-5 rounded-2xl font-bold text-center hover:bg-slate-50 transition text-lg flex items-center justify-center gap-2">
+                        Run Gap Checker
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
                     </a>
                 </div>
                 <div class="mt-12 flex items-center gap-4 text-sm font-bold text-slate-400">
@@ -167,7 +171,7 @@
                             <div class="text-xs uppercase tracking-widest font-bold text-slate-500">Mapping Latency</div>
                         </div>
                     </div>
-                    <button onclick="runDemo()" class="bg-white text-navy px-8 py-4 rounded-xl font-extrabold hover:bg-emerald hover:text-white transition-all shadow-xl shadow-white/5">Run Live Mapping Demo</button>
+                    <a href="checker.html" class="bg-white text-navy px-8 py-4 rounded-xl font-extrabold hover:bg-emerald hover:text-white transition-all shadow-xl shadow-white/5 inline-block">Test Your Compatibility</a>
                 </div>
                 <div class="space-y-4">
                     <div class="code-container mono relative">
@@ -248,6 +252,7 @@
                 <span class="text-xl font-extrabold tracking-tight">Galiondo</span>
             </div>
             <div class="flex gap-8 text-sm font-bold text-slate-400 uppercase tracking-widest">
+                <a href="checker.html" class="hover:text-emerald transition">Gap Checker</a>
                 <a href="mailto:raphael@baget.ai" class="hover:text-emerald transition">Contact Raphael</a>
                 <span>&copy; 2026 Galiondo SAS</span>
             </div>
@@ -255,20 +260,6 @@
     </footer>
 
     <script>
-        function runDemo() {
-            const output = document.getElementById('code-output');
-            output.innerText = "// Transforming...";
-            setTimeout(() => {
-                output.innerText = JSON.stringify({
-                    "G-PL-01": {"label": "CA Net", "value": 85000.00},
-                    "G-PL-04": {"label": "Masse Salariale", "value": 32000.00},
-                    "G-PL-07": {"label": "EBITDA", "value": 14200.00},
-                    "G-BS-01": {"label": "Cash", "value": 425000.00}
-                }, null, 2);
-                output.parentElement.classList.add('border-emerald');
-            }, 800);
-        }
-
         const form = document.getElementById('signup-form');
         const status = document.getElementById('status');
         const btn = form.querySelector('button');
