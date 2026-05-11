@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Dashboard | Galiondo Secure Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-navy: #1A2B44;
+            --brand-emerald: #10B981;
+            --brand-red: #EF4444;
+            --brand-slate: #64748B;
+            --brand-frost: #F8FAFC;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-navy);
+            color: white;
+            min-height: 100vh;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .bg-emerald { background-color: var(--brand-emerald); }
+        .text-emerald { color: var(--brand-emerald); }
+        .text-red { color: var(--brand-red); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+    </style>
+</head>
+<body class="antialiased p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Security Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-8 h-8 bg-emerald rounded-lg flex items-center justify-center text-white">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <span class="text-emerald font-bold tracking-widest text-xs uppercase">TLS 1.3 Encrypted Viewer</span>
+                </div>
+                <h1 class="text-3xl font-extrabold tracking-tight">Monthly Update: April 2026</h1>
+                <p class="text-slate-400 font-medium">Generare SAS - Lead: Guillaume de Saint Basile</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 px-6 py-4 rounded-2xl text-right">
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Access Expires In</div>
+                <div class="text-2xl font-bold mono">47:54:12</div>
+            </div>
+        </header>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Financial Data -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- KPI Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Net Revenue</div>
+                        <div class="text-3xl font-bold mono">85,200€</div>
+                        <div class="text-sm font-bold text-emerald mt-2">↑ 12.4% MoM</div>
+                    </div>
+                    <div class="glass-card p-6">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Monthly Burn</div>
+                        <div class="text-3xl font-bold mono">-32,400€</div>
+                        <div class="text-sm font-bold text-red mt-2">↓ 4.2% MoM</div>
+                    </div>
+                    <div class="glass-card p-6">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Runway</div>
+                        <div class="text-3xl font-bold mono">18.4 <span class="text-lg text-slate-500">mos</span></div>
+                        <div class="text-sm font-bold text-slate-400 mt-2">Forecasted</div>
+                    </div>
+                </div>
+
+                <!-- Detailed Table -->
+                <div class="glass-card overflow-hidden">
+                    <div class="p-6 border-b border-white/10 flex justify-between items-center">
+                        <h2 class="font-bold text-lg">P&L Details (Galion Standard)</h2>
+                        <button class="text-xs font-bold bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg transition">Export CSV</button>
+                    </div>
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-[10px] font-bold text-slate-500 uppercase tracking-widest bg-white/5">
+                                <th class="px-6 py-4">ID</th>
+                                <th class="px-6 py-4">Account</th>
+                                <th class="px-6 py-4 text-right">Amount</th>
+                                <th class="px-6 py-4 text-right">Delta</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5">
+                            <tr class="hover:bg-white/5 transition">
+                                <td class="px-6 py-4 mono text-xs text-slate-500">G-PL-01</td>
+                                <td class="px-6 py-4 font-semibold">Net Revenue (CA Net)</td>
+                                <td class="px-6 py-4 text-right mono">85,200€</td>
+                                <td class="px-6 py-4 text-right text-emerald font-bold">+9,400€</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition">
+                                <td class="px-6 py-4 mono text-xs text-slate-500">G-PL-04</td>
+                                <td class="px-6 py-4 font-semibold">Payroll (Masse Salariale)</td>
+                                <td class="px-6 py-4 text-right mono">42,500€</td>
+                                <td class="px-6 py-4 text-right text-slate-400 font-bold">0€</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition">
+                                <td class="px-6 py-4 mono text-xs text-slate-500">G-PL-05</td>
+                                <td class="px-6 py-4 font-semibold">Marketing & Sales</td>
+                                <td class="px-6 py-4 text-right mono">12,300€</td>
+                                <td class="px-6 py-4 text-right text-red font-bold">+1,200€</td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition bg-emerald/5">
+                                <td class="px-6 py-4 mono text-xs text-emerald">G-PL-09</td>
+                                <td class="px-6 py-4 font-bold text-emerald">Tax Credits (CIR/CII)</td>
+                                <td class="px-6 py-4 text-right mono text-emerald">4,500€</td>
+                                <td class="px-6 py-4 text-right text-emerald font-bold">Verified</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Narrative Sidebar -->
+            <div class="space-y-8">
+                <div class="glass-card p-8">
+                    <h2 class="text-xl font-bold mb-6">Founder's Context</h2>
+                    <div class="space-y-6 text-slate-300 leading-relaxed text-sm">
+                        <p>
+                            April was a strong month for expansion. We closed three new mid-market accounts which drove the 12% revenue growth.
+                        </p>
+                        <p>
+                            Marketing spend increased slightly as we ramped up lead gen for the Q3 pipeline. Our CAC remains stable at 450€.
+                        </p>
+                        <p>
+                            <strong>Hiring:</strong> We welcomed 2 new engineers. Headcount is now 14.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 border-emerald/20">
+                    <h3 class="font-bold mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald"></span>
+                        Data Hygiene Score
+                    </h3>
+                    <div class="w-full bg-white/5 h-2 rounded-full mb-2 overflow-hidden">
+                        <div class="bg-emerald w-[100%] h-full"></div>
+                    </div>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">100% Deterministic Mapping</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

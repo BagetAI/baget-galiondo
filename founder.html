@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founder Dashboard | Galiondo Mapping Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-navy: #1A2B44;
+            --brand-emerald: #10B981;
+            --brand-warning: #F59E0B;
+            --brand-frost: #F8FAFC;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-frost);
+            color: var(--brand-navy);
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .bg-navy { background-color: var(--brand-navy); }
+        .bg-emerald { background-color: var(--brand-emerald); }
+        .text-emerald { color: var(--brand-emerald); }
+        .border-emerald { border-color: var(--brand-emerald); }
+        .card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="antialiased bg-slate-50 min-h-screen">
+    <nav class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-navy rounded-lg flex items-center justify-center text-white font-bold">G</div>
+            <span class="font-extrabold text-xl tracking-tight">Galiondo</span>
+            <span class="bg-slate-100 text-slate-500 text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider ml-2">Founder Console</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-emerald"></div>
+                <span class="text-sm font-bold text-slate-600">QBO Connected</span>
+            </div>
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Raphael" class="w-8 h-8 rounded-full border border-slate-200">
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto p-8">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight mb-2">April 2026 Reporting Cycle</h1>
+                <p class="text-slate-500 font-medium">Reporting Window: May 15 - May 25</p>
+            </div>
+            <div class="flex gap-4">
+                <button class="bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-bold hover:bg-slate-50 transition">Save Draft</button>
+                <button class="bg-navy text-white px-6 py-3 rounded-xl font-bold hover:opacity-90 transition shadow-xl shadow-navy/20">Generate Secure Link</button>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Left Col: Mapping & Gap Checker -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Gap Checker Alert -->
+                <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex gap-4">
+                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-amber-900 mb-1">Gap Detected: Headcount Missing</h3>
+                        <p class="text-amber-700 text-sm mb-4 leading-relaxed">QuickBooks does not provide a departmental headcount breakdown. This is required for the Galion Standard G-PL-04 calculation.</p>
+                        <div class="grid grid-cols-3 gap-4">
+                            <input type="number" placeholder="Tech" class="px-4 py-2 rounded-lg border border-amber-200 bg-white/50 text-sm">
+                            <input type="number" placeholder="S&M" class="px-4 py-2 rounded-lg border border-amber-200 bg-white/50 text-sm">
+                            <input type="number" placeholder="G&A" class="px-4 py-2 rounded-lg border border-amber-200 bg-white/50 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mapping Table -->
+                <div class="card overflow-hidden">
+                    <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                        <h2 class="font-bold text-lg">QBO to Galion Mapping</h2>
+                        <span class="text-xs font-bold bg-emerald/10 text-emerald px-2 py-1 rounded">28 Auto-Mapped</span>
+                    </div>
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50">
+                                <th class="px-6 py-4">Galion ID</th>
+                                <th class="px-6 py-4">QBO Row (Source)</th>
+                                <th class="px-6 py-4 text-right">Value</th>
+                                <th class="px-6 py-4">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="px-6 py-4 mono text-xs">G-PL-01</td>
+                                <td class="px-6 py-4 font-semibold">Total Income</td>
+                                <td class="px-6 py-4 text-right mono">85,200.00</td>
+                                <td class="px-6 py-4">
+                                    <span class="text-[10px] font-bold bg-emerald/10 text-emerald px-2 py-1 rounded">MATCH</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 mono text-xs">G-PL-04</td>
+                                <td class="px-6 py-4 font-semibold">Salaries / Gross Pay</td>
+                                <td class="px-6 py-4 text-right mono">42,500.00</td>
+                                <td class="px-6 py-4">
+                                    <span class="text-[10px] font-bold bg-emerald/10 text-emerald px-2 py-1 rounded">MATCH</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 mono text-xs text-amber-600">G-PL-09</td>
+                                <td class="px-6 py-4">
+                                    <select class="text-sm font-semibold bg-white border border-slate-200 rounded p-1">
+                                        <option>Select QBO Account...</option>
+                                        <option selected>Crédit d'Impôt Recherche</option>
+                                    </select>
+                                </td>
+                                <td class="px-6 py-4 text-right mono">4,500.00</td>
+                                <td class="px-6 py-4">
+                                    <span class="text-[10px] font-bold bg-amber-100 text-amber-600 px-2 py-1 rounded">MANUAL</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Right Col: Narrative Editor -->
+            <div class="space-y-8">
+                <div class="card p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold">Narrative Update</h2>
+                        <button class="text-xs font-bold text-emerald hover:underline">Auto-Draft from Data</button>
+                    </div>
+                    <textarea class="w-full h-64 p-6 rounded-2xl border border-slate-200 bg-slate-50 font-medium text-sm leading-relaxed focus:ring-4 focus:ring-emerald/10 focus:border-emerald outline-none" placeholder="Add qualitative context for your investors here..."></textarea>
+                    <p class="text-[10px] text-slate-400 mt-4 leading-tight">These notes will appear alongside the financial data in the secure magic-link viewer.</p>
+                </div>
+
+                <div class="bg-navy rounded-3xl p-8 text-white relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-emerald/20 rounded-full blur-3xl"></div>
+                    <h3 class="font-bold text-lg mb-4">VC Ready?</h3>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">Your report is 100% compliant with the Alven/Kima mandate standards for 2026.</p>
+                    <a href="dashboard.html" target="_blank" class="block w-full text-center bg-white text-navy font-bold py-3 rounded-xl hover:bg-emerald hover:text-white transition">Preview Secure Link</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
