@@ -30,6 +30,13 @@
             border: 1px solid #E2E8F0;
             border-radius: 20px;
         }
+        .toast {
+            transform: translateY(100px);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .toast.show {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="antialiased bg-slate-50 min-h-screen">
@@ -40,7 +47,7 @@
             <span class="bg-slate-100 text-slate-500 text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider ml-2">Founder Console</span>
         </div>
         <div class="flex items-center gap-6">
-            <a href="checker" class="text-xs font-bold text-slate-500 hover:text-emerald transition">Gap Checker</a>
+            <a href="checker.html" class="text-xs font-bold text-slate-500 hover:text-emerald transition">Gap Checker</a>
             <div class="flex items-center gap-2 border-l border-slate-200 pl-6">
                 <div class="w-2 h-2 rounded-full bg-emerald"></div>
                 <span class="text-sm font-bold text-slate-600">QBO Connected</span>
@@ -58,7 +65,7 @@
             </div>
             <div class="flex gap-4">
                 <button class="bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-bold hover:bg-slate-50 transition">Save Draft</button>
-                <button class="bg-navy text-white px-6 py-3 rounded-xl font-bold hover:opacity-90 transition shadow-xl shadow-navy/20">Generate Secure Link</button>
+                <button onclick="generateLink()" class="bg-navy text-white px-6 py-3 rounded-xl font-bold hover:opacity-90 transition shadow-xl shadow-navy/20">Generate Secure Link</button>
             </div>
         </div>
 
@@ -138,7 +145,7 @@
                         <h2 class="text-xl font-bold">Narrative Update</h2>
                         <button class="text-xs font-bold text-emerald hover:underline">Auto-Draft from Data</button>
                     </div>
-                    <textarea class="w-full h-64 p-6 rounded-2xl border border-slate-200 bg-slate-50 font-medium text-sm leading-relaxed focus:ring-4 focus:ring-emerald/10 focus:border-emerald outline-none" placeholder="Add qualitative context for your investors here..."></textarea>
+                    <textarea id="narrative" class="w-full h-64 p-6 rounded-2xl border border-slate-200 bg-slate-50 font-medium text-sm leading-relaxed focus:ring-4 focus:ring-emerald/10 focus:border-emerald outline-none" placeholder="Add qualitative context for your investors here..."></textarea>
                     <p class="text-[10px] text-slate-400 mt-4 leading-tight">These notes will appear alongside the financial data in the secure magic-link viewer.</p>
                 </div>
 
@@ -151,5 +158,33 @@
             </div>
         </div>
     </main>
+
+    <!-- Success Toast -->
+    <div id="toast" class="toast fixed bottom-8 left-1/2 -translate-x-1/2 bg-navy text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-4 z-50">
+        <div class="w-8 h-8 bg-emerald rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <p class="font-bold text-sm">Secure Link Generated</p>
+            <p class="text-xs text-slate-400">Copied to clipboard. Valid for 7 days.</p>
+        </div>
+    </div>
+
+    <script>
+        function generateLink() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            
+            // Simulation of generating link and copying to clipboard
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Load some initial data
+        window.onload = () => {
+            document.getElementById('narrative').value = "April saw strong growth in self-serve revenue, up 15% following our pricing adjustment. We successfully landed two enterprise pilots with Tier-1 retailers.\n\nMarketing spend was intentionally lowered as we optimized our Google Ads funnels, resulting in a 20% improvement in CAC.\n\nHiring: We closed two key senior engineering roles. Both start in early May.";
+        };
+    </script>
 </body>
 </html>

@@ -3,153 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investor Dashboard | Galiondo Secure Viewer</title>
+    <title>Secure Investor Update | Galiondo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --brand-navy: #1A2B44;
             --brand-emerald: #10B981;
             --brand-red: #EF4444;
             --brand-slate: #64748B;
-            --brand-frost: #F8FAFC;
+            --brand-frost: #F1F5F9;
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--brand-navy);
-            color: white;
-            min-height: 100vh;
+            background-color: var(--brand-frost);
+            color: var(--brand-navy);
         }
         .mono { font-family: 'JetBrains Mono', monospace; }
-        .bg-emerald { background-color: var(--brand-emerald); }
+        .bg-navy { background-color: var(--brand-navy); }
         .text-emerald { color: var(--brand-emerald); }
-        .text-red { color: var(--brand-red); }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+        
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; padding: 0; }
+            .card { border: none; box-shadow: none; }
+            .print-break { page-break-after: always; }
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .status-pill {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
     </style>
 </head>
-<body class="antialiased p-4 md:p-8">
-    <div class="max-w-7xl mx-auto">
-        <!-- Security Header -->
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
+<body class="antialiased min-h-screen">
+    <!-- Top Security Bar (No-Print) -->
+    <div class="no-print bg-navy text-white px-8 py-3 flex justify-between items-center text-xs font-bold tracking-widest uppercase">
+        <div class="flex items-center gap-3">
+            <span class="flex items-center gap-1 text-emerald">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                TLS 1.3 SECURE
+            </span>
+            <span class="text-slate-400">|</span>
+            <span>GALION PROJECT STANDARD V2026 VERIFIED</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-slate-400">EXPIRES IN:</span>
+            <span id="countdown" class="mono text-emerald">06:23:44:12</span>
+        </div>
+    </div>
+
+    <main class="max-w-6xl mx-auto p-8 lg:py-16">
+        <!-- Dashboard Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-12">
             <div>
-                <div class="flex items-center gap-2 mb-2">
-                    <div class="w-8 h-8 bg-emerald rounded-lg flex items-center justify-center text-white">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    </div>
-                    <span class="text-emerald font-bold tracking-widest text-xs uppercase">TLS 1.3 Encrypted Viewer</span>
-                </div>
-                <h1 class="text-3xl font-extrabold tracking-tight">Monthly Update: April 2026</h1>
-                <p class="text-slate-400 font-medium">Generare SAS - Lead: Guillaume de Saint Basile</p>
-            </div>
-            <div class="bg-white/5 border border-white/10 px-6 py-4 rounded-2xl text-right">
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Access Expires In</div>
-                <div class="text-2xl font-bold mono">47:54:12</div>
-            </div>
-        </header>
-
-        <div class="grid lg:grid-cols-3 gap-8">
-            <!-- Financial Data -->
-            <div class="lg:col-span-2 space-y-8">
-                <!-- KPI Overview -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="glass-card p-6">
-                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Net Revenue</div>
-                        <div class="text-3xl font-bold mono">85,200€</div>
-                        <div class="text-sm font-bold text-emerald mt-2">↑ 12.4% MoM</div>
-                    </div>
-                    <div class="glass-card p-6">
-                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Monthly Burn</div>
-                        <div class="text-3xl font-bold mono">-32,400€</div>
-                        <div class="text-sm font-bold text-red mt-2">↓ 4.2% MoM</div>
-                    </div>
-                    <div class="glass-card p-6">
-                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Runway</div>
-                        <div class="text-3xl font-bold mono">18.4 <span class="text-lg text-slate-500">mos</span></div>
-                        <div class="text-sm font-bold text-slate-400 mt-2">Forecasted</div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-navy rounded flex items-center justify-center text-white font-black text-xl">G</div>
+                    <div>
+                        <h1 class="text-2xl font-extrabold tracking-tight leading-none">Generare SAS</h1>
+                        <p class="text-slate-500 font-semibold text-sm">Monthly Investor Report &bull; April 2026</p>
                     </div>
                 </div>
-
-                <!-- Detailed Table -->
-                <div class="glass-card overflow-hidden">
-                    <div class="p-6 border-b border-white/10 flex justify-between items-center">
-                        <h2 class="font-bold text-lg">P&L Details (Galion Standard)</h2>
-                        <button class="text-xs font-bold bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg transition">Export CSV</button>
-                    </div>
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="text-[10px] font-bold text-slate-500 uppercase tracking-widest bg-white/5">
-                                <th class="px-6 py-4">ID</th>
-                                <th class="px-6 py-4">Account</th>
-                                <th class="px-6 py-4 text-right">Amount</th>
-                                <th class="px-6 py-4 text-right">Delta</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-white/5">
-                            <tr class="hover:bg-white/5 transition">
-                                <td class="px-6 py-4 mono text-xs text-slate-500">G-PL-01</td>
-                                <td class="px-6 py-4 font-semibold">Net Revenue (CA Net)</td>
-                                <td class="px-6 py-4 text-right mono">85,200€</td>
-                                <td class="px-6 py-4 text-right text-emerald font-bold">+9,400€</td>
-                            </tr>
-                            <tr class="hover:bg-white/5 transition">
-                                <td class="px-6 py-4 mono text-xs text-slate-500">G-PL-04</td>
-                                <td class="px-6 py-4 font-semibold">Payroll (Masse Salariale)</td>
-                                <td class="px-6 py-4 text-right mono">42,500€</td>
-                                <td class="px-6 py-4 text-right text-slate-400 font-bold">0€</td>
-                            </tr>
-                            <tr class="hover:bg-white/5 transition">
-                                <td class="px-6 py-4 mono text-xs text-slate-500">G-PL-05</td>
-                                <td class="px-6 py-4 font-semibold">Marketing & Sales</td>
-                                <td class="px-6 py-4 text-right mono">12,300€</td>
-                                <td class="px-6 py-4 text-right text-red font-bold">+1,200€</td>
-                            </tr>
-                            <tr class="hover:bg-white/5 transition bg-emerald/5">
-                                <td class="px-6 py-4 mono text-xs text-emerald">G-PL-09</td>
-                                <td class="px-6 py-4 font-bold text-emerald">Tax Credits (CIR/CII)</td>
-                                <td class="px-6 py-4 text-right mono text-emerald">4,500€</td>
-                                <td class="px-6 py-4 text-right text-emerald font-bold">Verified</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="flex gap-4">
+                    <span class="status-pill bg-emerald/10 text-emerald">Audit Passed</span>
+                    <span class="status-pill bg-slate-100 text-slate-500">Series A Portfolio</span>
                 </div>
             </div>
+            
+            <div class="flex gap-3 no-print">
+                <button onclick="window.print()" class="bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-bold hover:bg-slate-50 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Export to PDF
+                </button>
+                <button class="bg-navy text-white px-6 py-3 rounded-xl font-bold hover:opacity-90 transition">
+                    Approve Report
+                </button>
+            </div>
+        </div>
 
-            <!-- Narrative Sidebar -->
-            <div class="space-y-8">
-                <div class="glass-card p-8">
-                    <h2 class="text-xl font-bold mb-6">Founder's Context</h2>
-                    <div class="space-y-6 text-slate-300 leading-relaxed text-sm">
-                        <p>
-                            April was a strong month for expansion. We closed three new mid-market accounts which drove the 12% revenue growth.
-                        </p>
-                        <p>
-                            Marketing spend increased slightly as we ramped up lead gen for the Q3 pipeline. Our CAC remains stable at 450€.
-                        </p>
-                        <p>
-                            <strong>Hiring:</strong> We welcomed 2 new engineers. Headcount is now 14.
-                        </p>
-                    </div>
-                </div>
+        <div class="grid lg:grid-cols-4 gap-8">
+            <!-- Left: Financials (3 cols) -->
+            <div class="lg:col-span-3 space-y-8">
                 
-                <div class="glass-card p-8 border-emerald/20">
-                    <h3 class="font-bold mb-4 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald"></span>
-                        Data Hygiene Score
-                    </h3>
-                    <div class="w-full bg-white/5 h-2 rounded-full mb-2 overflow-hidden">
-                        <div class="bg-emerald w-[100%] h-full"></div>
+                <!-- KPI Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="card p-6">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Net Revenue (CA Net)</p>
+                        <p class="text-3xl font-extrabold mono">85.2k€</p>
+                        <p class="text-xs font-bold text-emerald mt-2 flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path></svg>
+                            12.4% MoM
+                        </p>
                     </div>
-                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">100% Deterministic Mapping</p>
+                    <div class="card p-6">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Monthly Burn</p>
+                        <p class="text-3xl font-extrabold mono text-red-500">-32.4k€</p>
+                        <p class="text-xs font-bold text-red-500 mt-2 flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                            4.2% MoM
+                        </p>
+                    </div>
+                    <div class="card p-6 border-emerald/30">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 text-emerald">Est. Runway</p>
+                        <p class="text-3xl font-extrabold mono">18.4 <span class="text-sm text-slate-400">Mo</span></p>
+                        <p class="text-xs font-bold text-slate-400 mt-2">Based on current burn</p>
+                    </div>
+                </div>
+
+                <!-- Main P&L Table -->
+                <div class="card overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                        <h2 class="font-bold text-sm tracking-tight">Galion Standard P&L Breakdown</h2>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Values in EUR</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-white">
+                                    <th class="px-6 py-4 border-b border-slate-100">ID</th>
+                                    <th class="px-6 py-4 border-b border-slate-100">Galion Category</th>
+                                    <th class="px-6 py-4 border-b border-slate-100 text-right">Actual</th>
+                                    <th class="px-6 py-4 border-b border-slate-100 text-right">Budget</th>
+                                    <th class="px-6 py-4 border-b border-slate-100 text-right">Delta</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-sm font-medium">
+                                <tr>
+                                    <td class="px-6 py-4 mono text-xs text-slate-400">G-PL-01</td>
+                                    <td class="px-6 py-4">Net Revenue</td>
+                                    <td class="px-6 py-4 text-right mono">85,200.00</td>
+                                    <td class="px-6 py-4 text-right mono text-slate-400">80,000.00</td>
+                                    <td class="px-6 py-4 text-right text-emerald font-bold">+6.5%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 mono text-xs text-slate-400">G-PL-02</td>
+                                    <td class="px-6 py-4">COGS</td>
+                                    <td class="px-6 py-4 text-right mono">12,400.00</td>
+                                    <td class="px-6 py-4 text-right mono text-slate-400">11,000.00</td>
+                                    <td class="px-6 py-4 text-right text-red-500 font-bold">-12.7%</td>
+                                </tr>
+                                <tr class="bg-slate-50">
+                                    <td class="px-6 py-4 mono text-xs text-slate-400">G-PL-03</td>
+                                    <td class="px-6 py-4 font-bold">Gross Margin</td>
+                                    <td class="px-6 py-4 text-right mono font-bold">72,800.00</td>
+                                    <td class="px-6 py-4 text-right mono text-slate-400">69,000.00</td>
+                                    <td class="px-6 py-4 text-right text-emerald font-bold">+5.5%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 mono text-xs text-slate-400">G-PL-04</td>
+                                    <td class="px-6 py-4">Masse Salariale</td>
+                                    <td class="px-6 py-4 text-right mono">42,500.00</td>
+                                    <td class="px-6 py-4 text-right mono text-slate-400">42,000.00</td>
+                                    <td class="px-6 py-4 text-right text-slate-400">Stable</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 mono text-xs text-slate-400">G-PL-05</td>
+                                    <td class="px-6 py-4">Marketing & Sales</td>
+                                    <td class="px-6 py-4 text-right mono">15,600.00</td>
+                                    <td class="px-6 py-4 text-right mono text-slate-400">18,000.00</td>
+                                    <td class="px-6 py-4 text-right text-emerald font-bold">-13.3%</td>
+                                </tr>
+                                <tr class="bg-emerald/5">
+                                    <td class="px-6 py-4 mono text-xs text-emerald">G-PL-09</td>
+                                    <td class="px-6 py-4 font-bold text-emerald">French Tax Credits (CIR/CII)</td>
+                                    <td class="px-6 py-4 text-right mono font-bold text-emerald">4,500.00</td>
+                                    <td class="px-6 py-4 text-right mono text-slate-400">4,500.00</td>
+                                    <td class="px-6 py-4 text-right text-emerald font-bold">Invoiced</td>
+                                </tr>
+                                <tr class="bg-navy text-white font-bold">
+                                    <td class="px-6 py-4 mono text-xs opacity-50">G-PL-07</td>
+                                    <td class="px-6 py-4">EBITDA</td>
+                                    <td class="px-6 py-4 text-right mono">5,200.00</td>
+                                    <td class="px-6 py-4 text-right mono opacity-50">4,000.00</td>
+                                    <td class="px-6 py-4 text-right text-emerald">+30.0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Cash & Balance Sheet -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <div class="p-6 border-b border-slate-100 font-bold text-sm">Liquidity Summary</div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-500">G-BS-01 Trésorerie (Cash)</span>
+                                <span class="mono font-bold">582,400€</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-500">G-BS-02 Créances Clients</span>
+                                <span class="mono font-bold">12,500€</span>
+                            </div>
+                            <div class="pt-4 border-t border-slate-100 flex justify-between items-center font-bold">
+                                <span>Total Available</span>
+                                <span class="text-lg">594,900€</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="p-6 border-b border-slate-100 font-bold text-sm">Liabilities</div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-500">G-BS-03 Dettes Fournisseurs</span>
+                                <span class="mono font-bold">8,200€</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-500">G-BS-04 Dettes Fiscales/Soc.</span>
+                                <span class="mono font-bold">45,600€</span>
+                            </div>
+                            <div class="pt-4 border-t border-slate-100 flex justify-between items-center font-bold text-red-500">
+                                <span>Total Current Debt</span>
+                                <span class="text-lg">53,800€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Narrative & Context (1 col) -->
+            <div class="space-y-8">
+                <div class="card p-8 bg-navy text-white">
+                    <h3 class="font-bold text-lg mb-6">Founder's Narrative</h3>
+                    <div class="space-y-4 text-slate-400 text-sm leading-relaxed">
+                        <p>
+                            April saw strong growth in self-serve revenue, up 15% following our pricing adjustment. We successfully landed two enterprise pilots with Tier-1 retailers.
+                        </p>
+                        <p>
+                            Marketing spend was intentionally lowered as we optimized our Google Ads funnels, resulting in a 20% improvement in CAC.
+                        </p>
+                        <p>
+                            <strong>Hiring:</strong> We closed two key senior engineering roles. Both start in early May.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card p-8">
+                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Verification Metadata</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-500">Data Source</span>
+                            <span class="font-bold">QuickBooks Online</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-500">Report Engine</span>
+                            <span class="font-bold">Galiondo v1.2</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-500">Timestamp</span>
+                            <span class="font-bold mono">2026-05-11 09:12</span>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-8 border-t border-slate-100 text-center">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://baget-galiondo.vercel.app/dashboard&color=1A2B44" alt="Verification QR" class="mx-auto w-20 h-20 opacity-50 grayscale">
+                        <p class="text-[8px] text-slate-400 font-bold uppercase mt-2 tracking-widest">Digital Audit Trail</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="no-print py-20 bg-slate-100 border-t border-slate-200 mt-20 px-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-sm font-bold text-slate-500 uppercase tracking-widest">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-navy rounded flex items-center justify-center text-white text-[10px]">G</div>
+                <span class="text-navy">Galiondo Secure Viewer &copy; 2026</span>
+            </div>
+            <div class="flex gap-8">
+                <a href="mailto:raphael@baget.ai" class="hover:text-navy transition">Support</a>
+                <a href="founder" class="hover:text-navy transition">Founder Login</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Auto-expiry countdown simulation (7 days)
+        function updateCountdown() {
+            const now = new Date();
+            // Mock expiration 7 days from now
+            const expiry = new Date("2026-05-18T23:59:59");
+            const diff = expiry - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerText = "EXPIRED";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerText = 
+                `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Prevent Right-Click for data protection feel
+        document.addEventListener('contextmenu', event => {
+            if (window.matchMedia('print').matches) return;
+            // event.preventDefault(); // Uncomment for extra security "feel"
+        });
+    </script>
 </body>
 </html>
